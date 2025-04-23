@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+*.egg
+*.egg-info/
+eggs/
+.eggs/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Logs
+logs/
+
+# Temporary
+*.swp
+*.bak
+*.tmp
+*.temp
+.pytest_cache/
