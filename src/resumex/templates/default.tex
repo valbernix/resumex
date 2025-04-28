@@ -1,0 +1,111 @@
+\documentclass[a4paper,12pt]{article}
+
+
+% Emphasis
+\usepackage[normalem]{ulem}
+% Encoding
+\usepackage[utf8]{inputenc}
+% Language
+\usepackage[english,french]{babel}
+% Lists
+\usepackage{enumitem}
+% Margins
+\usepackage[margin=1in]{geometry}
+% Titles
+\usepackage{titlesec}
+
+
+% PDF encoding
+\pdfgentounicode=1
+
+% Use bullet symbol on list items
+\setlist[itemize,1]{label=\textbullet}
+% No indentation on list items
+\setlist[itemize]{noitemsep,left=0pt .. \parindent}
+
+% No page numbering
+\pagestyle{empty}
+% No section numbering
+\setcounter{secnumdepth}{0}
+
+% No spacing on subsections
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
+
+% Titles
+\titleformat{\section}
+{\large\bfseries\uppercase}
+% No label
+{}
+% No spacing between label and title
+{0pt}
+% No extra formatting before title
+{}
+% Horizontal rule beneath the title
+[\titlerule]
+
+% Subsubsection titles
+\titleformat*{\subsubsection}{\large\itshape}
+
+
+% ================================= %
+%               START               %
+% ================================= %
+
+\begin{document}
+
+
+% --- Header ---
+
+\begin{center}
+    \begin{minipage}{0.5\textwidth}
+        {\Huge\bfseries {{ name }}}
+        \medskip
+    \end{minipage} \hfill
+    \begin{minipage}{0.4\textwidth}
+        \raggedleft
+        Email: {{ email }} \\
+        Phone: {{ phone }} \\
+    \end{minipage}
+\end{center}
+
+
+% --- Education ---
+
+\section{Education}
+{% for edu in education %}
+\subsection{ {{- edu.institution }} $|$ {\normalfont\itshape {{ edu.degree }}} \hfill {{ edu.year }} }
+\begin{itemize}
+	{% for achievement in edu.achievements %}
+		\item {{ achievement }}
+	{% endfor %}
+\end{itemize}
+{% endfor %}
+
+
+% --- Experience ---
+
+\section{Experience}
+{% for xp in experience %}
+\subsection{ {{- xp.company.name }} \hfill {{ xp.company.location }} }
+\subsubsection{ {{- xp.position }} \hfill {{ xp.start_date }} - {{ xp.end_date }} }
+\begin{itemize}
+	{% for achievement in xp.achievements %}
+		\item {{ achievement }}
+	{% endfor %}
+\end{itemize}
+{% endfor %}
+
+
+% --- Skills ---
+
+\begin{description}[itemsep=0pt]
+  {% if skills.technical %}
+    \item[Technical] {{ skills.technical[:5] | join(", ") }}
+  {% endif %}
+  {% if skills.languages %}
+    \item[Languages] {{ skills.languages | map(attribute='name') | join("/ ") }}
+  {% endif %}
+\end{description}
+
+\end{document}
